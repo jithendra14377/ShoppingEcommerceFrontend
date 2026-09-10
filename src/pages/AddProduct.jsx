@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function AddProduct() {
-
   // TOAST STATES
   const [showToast, setShowToast] = useState(false);
 
@@ -16,7 +15,7 @@ function AddProduct() {
     About_item: "",
     quantity: "",
     price: "",
-    category: ""
+    category: "",
   });
 
   const [file, setFile] = useState(null);
@@ -24,14 +23,13 @@ function AddProduct() {
   function handleChange(e) {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   // SHOW TOAST FUNCTION
 
   function showBootstrapToast(message, type = "success") {
-
     setToastMessage(message);
 
     setToastType(type);
@@ -44,11 +42,9 @@ function AddProduct() {
   }
 
   async function handleSubmit(e) {
-
     e.preventDefault();
 
     try {
-
       const data = new FormData();
 
       data.append("title", formData.title);
@@ -60,11 +56,7 @@ function AddProduct() {
 
       // IMAGE CHECK
       if (!file) {
-
-        showBootstrapToast(
-          "Please select an image",
-          "warning"
-        );
+        showBootstrapToast("Please select an image", "warning");
 
         return;
       }
@@ -72,14 +64,14 @@ function AddProduct() {
       data.append("file", file);
 
       const res = await axios.post(
-        "https://ecomflask.duckdns.org/api/admin/add-item",
+        "https://shopiecomreact.duckdns.org/api/admin/add-item",
         data,
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        }
+            "Content-Type": "multipart/form-data",
+          },
+        },
       );
 
       console.log(res.data);
@@ -87,7 +79,7 @@ function AddProduct() {
       // SUCCESS TOAST
       showBootstrapToast(
         res.data.message || "Product Added Successfully",
-        "success"
+        "success",
       );
 
       // CLEAR FORM
@@ -97,19 +89,17 @@ function AddProduct() {
         About_item: "",
         quantity: "",
         price: "",
-        category: ""
+        category: "",
       });
 
       setFile(null);
-
     } catch (error) {
-
       console.log(error.response?.data || error.message);
 
       // ERROR TOAST
       showBootstrapToast(
         error.response?.data?.message || "Add Product Failed",
-        "danger"
+        "danger",
       );
     }
   }
@@ -199,44 +189,30 @@ function AddProduct() {
 
       {/* TOAST */}
 
-      {
-        showToast && (
-          <div
-            className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
-            role="alert"
-          >
-            <div className="d-flex">
+      {showToast && (
+        <div
+          className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
+          role="alert"
+        >
+          <div className="d-flex">
+            <div className="toast-body">{toastMessage}</div>
 
-              <div className="toast-body">
-                {toastMessage}
-              </div>
-
-              <button
-                type="button"
-                className="btn-close btn-close-white me-2 m-auto"
-                onClick={() => setShowToast(false)}
-              ></button>
-
-            </div>
+            <button
+              type="button"
+              className="btn-close btn-close-white me-2 m-auto"
+              onClick={() => setShowToast(false)}
+            ></button>
           </div>
-        )
-      }
+        </div>
+      )}
 
       <div className="add-page">
-
         <div className="add-card">
-
-          <h1 className="add-title">
-            Add Product
-          </h1>
+          <h1 className="add-title">Add Product</h1>
 
           <form onSubmit={handleSubmit}>
-
             <div className="mb-3">
-
-              <label className="form-label">
-                Product Title
-              </label>
+              <label className="form-label">Product Title</label>
 
               <input
                 type="text"
@@ -246,14 +222,10 @@ function AddProduct() {
                 value={formData.title}
                 onChange={handleChange}
               />
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                Description
-              </label>
+              <label className="form-label">Description</label>
 
               <textarea
                 className="form-control"
@@ -263,14 +235,10 @@ function AddProduct() {
                 value={formData.Description}
                 onChange={handleChange}
               ></textarea>
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                About Product
-              </label>
+              <label className="form-label">About Product</label>
 
               <textarea
                 className="form-control"
@@ -280,16 +248,11 @@ function AddProduct() {
                 value={formData.About_item}
                 onChange={handleChange}
               ></textarea>
-
             </div>
 
             <div className="row">
-
               <div className="col-md-6 mb-3">
-
-                <label className="form-label">
-                  Quantity
-                </label>
+                <label className="form-label">Quantity</label>
 
                 <input
                   type="number"
@@ -299,14 +262,10 @@ function AddProduct() {
                   value={formData.quantity}
                   onChange={handleChange}
                 />
-
               </div>
 
               <div className="col-md-6 mb-3">
-
-                <label className="form-label">
-                  Price
-                </label>
+                <label className="form-label">Price</label>
 
                 <input
                   type="number"
@@ -316,16 +275,11 @@ function AddProduct() {
                   value={formData.price}
                   onChange={handleChange}
                 />
-
               </div>
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                Category
-              </label>
+              <label className="form-label">Category</label>
 
               <input
                 type="text"
@@ -335,34 +289,23 @@ function AddProduct() {
                 value={formData.category}
                 onChange={handleChange}
               />
-
             </div>
 
             <div className="mb-4">
-
-              <label className="form-label">
-                Upload Product Image
-              </label>
+              <label className="form-label">Upload Product Image</label>
 
               <input
                 type="file"
                 className="form-control"
                 onChange={(e) => setFile(e.target.files[0])}
               />
-
             </div>
 
-            <button
-              type="submit"
-              className="submit-btn"
-            >
+            <button type="submit" className="submit-btn">
               Add Product
             </button>
-
           </form>
-
         </div>
-
       </div>
     </>
   );

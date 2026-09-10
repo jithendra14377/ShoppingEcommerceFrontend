@@ -3,10 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 function Register() {
-  
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,47 +23,43 @@ function Register() {
     userpassword: "",
     userphone: "",
     usergender: "",
-    useragree: false
+    useragree: false,
   });
   const url =
     role === "admin"
-      ? "https://ecomflask.duckdns.org/api/admin/register"
-      : "https://ecomflask.duckdns.org/api/user/register";
+      ? "https://shopiecomreact.duckdns.org/api/adminregister"
+      : "https://shopiecomreact.duckdns.org/api/user/register";
 
   const payload =
     role === "admin"
       ? {
-        username: formData.username,
-        useremail: formData.useremail,
-        useraddress: formData.useraddress,
-        userpassword: formData.userpassword,
-        useragree: formData.useragree
-      }
+          username: formData.username,
+          useremail: formData.useremail,
+          useraddress: formData.useraddress,
+          userpassword: formData.userpassword,
+          useragree: formData.useragree,
+        }
       : {
-        username: formData.username,
-        useremail: formData.useremail,
-        useraddress: formData.useraddress,
-        userpassword: formData.userpassword,
-        userphone: formData.userphone,
-        usergender: formData.usergender
-      };
-
-  
+          username: formData.username,
+          useremail: formData.useremail,
+          useraddress: formData.useraddress,
+          userpassword: formData.userpassword,
+          userphone: formData.userphone,
+          usergender: formData.usergender,
+        };
 
   function handleChange(e) {
-
     const { name, value, type, checked } = e.target;
 
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   }
 
   // SHOW TOAST FUNCTION
 
   function showBootstrapToast(message, type = "success") {
-
     setToastMessage(message);
 
     setToastType(type);
@@ -77,58 +71,69 @@ function Register() {
     }, 3000);
   }
 
- async function handleSubmit(e) {
-  e.preventDefault();
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-  try {
-    const url =
-      role === "admin"
-        ? "https://ecomflask.duckdns.org/api/admin/register"
-        : "https://ecomflask.duckdns.org/api/user/register";
+    try {
+      const url =
+        role === "admin"
+          ? "https://shopiecomreact.duckdns.org/api/adminregister"
+          : "https://shopiecomreact.duckdns.org/api/user/register";
 
-    const payload =
-      role === "admin"
-        ? {
-            username: formData.username,
-            useremail: formData.useremail,
-            useraddress: formData.useraddress,
-            userpassword: formData.userpassword,
-            useragree: formData.useragree
-          }
-        : {
-            username: formData.username,
-            useremail: formData.useremail,
-            useraddress: formData.useraddress,
-            userpassword: formData.userpassword,
-            userphone: formData.userphone,
-            usergender: formData.usergender
-          };
+      const payload =
+        role === "admin"
+          ? {
+              username: formData.username,
+              useremail: formData.useremail,
+              useraddress: formData.useraddress,
+              userpassword: formData.userpassword,
+              useragree: formData.useragree,
+            }
+          : {
+              username: formData.username,
+              useremail: formData.useremail,
+              useraddress: formData.useraddress,
+              userpassword: formData.userpassword,
+              userphone: formData.userphone,
+              usergender: formData.usergender,
+            };
 
-    const res = await axios.post(url, payload);
+      console.log("Sending request to:", url);
+      console.log("Payload:", payload);
 
-    console.log(res.data);
+      const res = await axios.post(url, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    showBootstrapToast(
-      res.data.message || "OTP Sent Successfully",
-      "success"
-    );
+      console.log("Server response:", res.data);
 
-    navigate("/verify-otp", {
-      state: {
-        token: res.data.token,
-        role: role
+      if (res.data.status === "success") {
+        showBootstrapToast(
+          res.data.message || "OTP Sent Successfully",
+          "success",
+        );
+
+        navigate("/verify-otp", {
+          state: {
+            token: res.data.token,
+            role: role,
+          },
+        });
+      } else {
+        showBootstrapToast(res.data.message || "Registration Failed", "danger");
       }
-    });
+    } catch (error) {
+      console.error("Registration error:", error);
+      console.error("Server response:", error.response?.data);
 
-  } catch (error) {
-    console.log(error.response?.data || error.message);
-
-    showBootstrapToast(
-      error.response?.data?.message || "Register Failed",
-      "danger"
-    );
+      showBootstrapToast(
+        error.response?.data?.message || "Register Failed",
+        "danger",
+      );
+    }
   }
-}
   return (
     <>
       {/* BOOTSTRAP 5 */}
@@ -224,82 +229,62 @@ function Register() {
 
       {/* TOAST */}
 
-      {
-        showToast && (
-          <div
-            className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
-            role="alert"
-          >
-            <div className="d-flex">
+      {showToast && (
+        <div
+          className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
+          role="alert"
+        >
+          <div className="d-flex">
+            <div className="toast-body">{toastMessage}</div>
 
-              <div className="toast-body">
-                {toastMessage}
-              </div>
-
-              <button
-                type="button"
-                className="btn-close btn-close-white me-2 m-auto"
-                onClick={() => setShowToast(false)}
-              ></button>
-
-            </div>
+            <button
+              type="button"
+              className="btn-close btn-close-white me-2 m-auto"
+              onClick={() => setShowToast(false)}
+            ></button>
           </div>
-        )
-      }
+        </div>
+      )}
 
       <div className="register-page">
-
         <div className="register-card">
+          <h1 className="register-title">Create Account</h1>
 
-         
-  <h1 className="register-title">
-    Create Account
-  </h1>
+          {/* ROLE SELECTION */}
 
-  {/* ROLE SELECTION */}
+          <div className="mb-4">
+            <label className="form-label d-block">Register As</label>
 
-  <div className="mb-4">
-    <label className="form-label d-block">
-      Register As
-    </label>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="role"
+                value="user"
+                checked={role === "user"}
+                onChange={(e) => setRole(e.target.value)}
+              />
 
-    <div className="form-check form-check-inline">
-      <input
-        className="form-check-input"
-        type="radio"
-        name="role"
-        value="user"
-        checked={role === "user"}
-        onChange={(e) => setRole(e.target.value)}
-      />
+              <label className="form-check-label">User</label>
+            </div>
 
-      <label className="form-check-label">
-        User
-      </label>
-    </div>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="role"
+                value="admin"
+                checked={role === "admin"}
+                onChange={(e) => setRole(e.target.value)}
+              />
 
-    <div className="form-check form-check-inline">
-      <input
-        className="form-check-input"
-        type="radio"
-        name="role"
-        value="admin"
-        checked={role === "admin"}
-        onChange={(e) => setRole(e.target.value)}
-      />
-
-      <label className="form-check-label">
-        Admin
-      </label>
-    </div>
-  </div>
+              <label className="form-check-label">Admin</label>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit}>
-
             <div className="mb-3">
-              <label className="form-label">
-                Username
-              </label>
+              <label className="form-label">Username</label>
 
               <input
                 type="text"
@@ -313,9 +298,7 @@ function Register() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">
-                Email Address
-              </label>
+              <label className="form-label">Email Address</label>
 
               <input
                 type="email"
@@ -329,9 +312,7 @@ function Register() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">
-                Address
-              </label>
+              <label className="form-label">Address</label>
 
               <input
                 type="text"
@@ -344,29 +325,27 @@ function Register() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">
-                Password
-              </label>
+              <label className="form-label">Password</label>
 
-             <div className="input-group">
-      <input
-        type={showPassword ? "text" : "password"}
-        className="form-control"
-        name="userpassword"
-        placeholder="Enter password"
-        value={formData.userpassword}
-        onChange={handleChange}
-        required
-      />
+              <div className="input-group">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control"
+                  name="userpassword"
+                  placeholder="Enter password"
+                  value={formData.userpassword}
+                  onChange={handleChange}
+                  required
+                />
 
-      <span
-        className="input-group-text bg-dark text-light"
-        style={{ cursor: "pointer" }}
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-      </span>
-    </div>
+                <span
+                  className="input-group-text bg-dark text-light"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
             </div>
 
             {/* USER ONLY FIELDS */}
@@ -374,9 +353,7 @@ function Register() {
             {role === "user" && (
               <>
                 <div className="mb-3">
-                  <label className="form-label">
-                    Phone Number
-                  </label>
+                  <label className="form-label">Phone Number</label>
 
                   <input
                     type="tel"
@@ -389,9 +366,7 @@ function Register() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label d-block">
-                    Gender
-                  </label>
+                  <label className="form-label d-block">Gender</label>
 
                   <div className="form-check form-check-inline">
                     <input
@@ -403,9 +378,7 @@ function Register() {
                       onChange={handleChange}
                     />
 
-                    <label className="form-check-label">
-                      Male
-                    </label>
+                    <label className="form-check-label">Male</label>
                   </div>
 
                   <div className="form-check form-check-inline">
@@ -418,9 +391,7 @@ function Register() {
                       onChange={handleChange}
                     />
 
-                    <label className="form-check-label">
-                      Female
-                    </label>
+                    <label className="form-check-label">Female</label>
                   </div>
 
                   <div className="form-check form-check-inline">
@@ -433,9 +404,7 @@ function Register() {
                       onChange={handleChange}
                     />
 
-                    <label className="form-check-label">
-                      Other
-                    </label>
+                    <label className="form-check-label">Other</label>
                   </div>
                 </div>
               </>
@@ -445,7 +414,6 @@ function Register() {
 
             {role === "admin" && (
               <div className="form-check mb-4">
-
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -458,21 +426,14 @@ function Register() {
                 <label className="form-check-label">
                   I agree to the Terms & Conditions
                 </label>
-
               </div>
             )}
 
-            <button
-              type="submit"
-              className="register-btn"
-            >
+            <button type="submit" className="register-btn">
               Register as {role === "admin" ? "Admin" : "User"}
             </button>
-
           </form>
-
         </div>
-
       </div>
     </>
   );

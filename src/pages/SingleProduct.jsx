@@ -3,23 +3,21 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function SingleProduct() {
-
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
 
   async function getSingleProduct() {
     try {
-
       const res = await axios.get(
-        `https://ecomflask.duckdns.org/api/admin/item/${id}`,
+        `https://shopiecomreact.duckdns.org/api/admin/item/${id}`,
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
 
       setProduct(res.data.product);
-console.log(res.data.product)
+      console.log(res.data.product);
     } catch (error) {
       console.log(error.response?.data || error.message);
     }
@@ -39,7 +37,6 @@ console.log(res.data.product)
 
   return (
     <>
-
       {/* CUSTOM STYLE */}
       <style>{`
         .single-product-page{
@@ -134,16 +131,11 @@ console.log(res.data.product)
       `}</style>
 
       <div className="single-product-page">
-
         <div className="container">
           <div className="row justify-content-center">
-
             <div className="col-lg-10">
-
               <div className="product-card">
-
                 <div className="row g-0">
-
                   {/* IMAGE */}
                   <div className="col-md-6">
                     <img
@@ -156,47 +148,28 @@ console.log(res.data.product)
                   {/* DETAILS */}
                   <div className="col-md-6">
                     <div className="product-details">
+                      <h1 className="product-title">{product.itemname}</h1>
 
-                      <h1 className="product-title">
-                        {product.itemname}
-                      </h1>
+                      <p className="product-desc">{product.item_desc}</p>
 
-                      <p className="product-desc">
-                        {product.item_desc}
-                      </p>
+                      <div className="product-about">{product.item_about}</div>
 
-                      <div className="product-about">
-                        {product.item_about}
-                      </div>
-
-                      <h2 className="product-price">
-                        ₹{product.price}
-                      </h2>
+                      <h2 className="product-price">₹{product.price}</h2>
 
                       <div className="product-info">
-
                         <span className="info-badge">
                           Quantity: {product.quantity}
                         </span>
 
-                        <span className="info-badge">
-                          {product.category}
-                        </span>
-
+                        <span className="info-badge">{product.category}</span>
                       </div>
-
                     </div>
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
-
       </div>
     </>
   );

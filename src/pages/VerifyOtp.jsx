@@ -7,7 +7,7 @@ function VerifyOtp() {
   const navigate = useNavigate();
 
   const tokenFromRegister = location.state?.token || "";
-const role = location.state?.role || "user";
+  const role = location.state?.role || "user";
   const [otpData, setOtpData] = useState({
     otp: "",
     token: tokenFromRegister,
@@ -22,67 +22,54 @@ const role = location.state?.role || "user";
       [e.target.name]: e.target.value,
     });
   }
-if (!tokenFromRegister) {
-  return (
-    <div className="container mt-5">
-      <div className="alert alert-danger">
-        Invalid access. Please register first.
+  if (!tokenFromRegister) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-danger">
+          Invalid access. Please register first.
+        </div>
       </div>
-    </div>
-  );
-}
- async function handleSubmit(e) {
-  e.preventDefault();
-
-  try {
-    const url =
-      role === "admin"
-        ? "https://ecomflask.duckdns.org/api/admin/verify-otp"
-        : "https://ecomflask.duckdns.org/api/user/verify-otp";
-
-    const payload = {
-      otp: otpData.otp,
-      token: otpData.token
-    };
-
-    const res = await axios.post(
-      url,
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
     );
-
-    console.log(res.data);
-
-    setMessage(
-      res.data.message || "Verification Successful"
-    );
-
-    setAlertType("success");
-
-    setTimeout(() => {
-      navigate("/login", {
-        state: { role }
-      });
-    }, 1500);
-
-  } catch (error) {
-
-    console.log(
-      error.response?.data || error.message
-    );
-
-    setMessage(
-      error.response?.data?.message ||
-      "Invalid OTP"
-    );
-
-    setAlertType("danger");
   }
-}
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const url =
+        role === "admin"
+          ? "https://shopiecomreact.duckdns.org/api/admin/verify-otp"
+          : "https://shopiecomreact.duckdns.org/api/user/verify-otp";
+
+      const payload = {
+        otp: otpData.otp,
+        token: otpData.token,
+      };
+
+      const res = await axios.post(url, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(res.data);
+
+      setMessage(res.data.message || "Verification Successful");
+
+      setAlertType("success");
+
+      setTimeout(() => {
+        navigate("/login", {
+          state: { role },
+        });
+      }, 1500);
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+
+      setMessage(error.response?.data?.message || "Invalid OTP");
+
+      setAlertType("danger");
+    }
+  }
 
   return (
     <>
@@ -158,31 +145,20 @@ if (!tokenFromRegister) {
       `}</style>
 
       <div className="otp-page">
-
         <div className="otp-card">
-<h1 className="otp-title">
-  Verify OTP
-</h1>
+          <h1 className="otp-title">Verify OTP</h1>
 
-<p className="text-center text-muted">
-  {role === "admin"
-    ? "Admin Verification"
-    : "User Verification"}
-</p>
+          <p className="text-center text-muted">
+            {role === "admin" ? "Admin Verification" : "User Verification"}
+          </p>
 
           {message && (
-            <div className={`alert alert-${alertType}`}>
-              {message}
-            </div>
+            <div className={`alert alert-${alertType}`}>{message}</div>
           )}
 
           <form onSubmit={handleSubmit}>
-
             <div className="mb-4">
-
-              <label className="form-label">
-                Enter OTP
-              </label>
+              <label className="form-label">Enter OTP</label>
 
               <input
                 type="text"
@@ -193,20 +169,13 @@ if (!tokenFromRegister) {
                 onChange={handleChange}
                 required
               />
-
             </div>
 
-            <button
-              type="submit"
-              className="verify-btn"
-            >
+            <button type="submit" className="verify-btn">
               Verify OTP
             </button>
-
           </form>
-
         </div>
-
       </div>
     </>
   );

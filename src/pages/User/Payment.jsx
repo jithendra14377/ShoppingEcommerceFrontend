@@ -25,11 +25,11 @@ function Payment() {
 
       // STEP 1: CREATE ORDER
       const orderRes = await axios.post(
-        "https://ecomflask.duckdns.org/api/payment/create-order",
+        "https://shopiecomreact.duckdns.org/api/payment/create-order",
         type === "cart"
           ? { type: "cart" }
           : { type: "single", itemid, quantity },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       const data = orderRes.data;
@@ -46,13 +46,13 @@ function Payment() {
         handler: async function (response) {
           try {
             const verifyRes = await axios.post(
-              "https://ecomflask.duckdns.org/api/payment/verify",
+              "https://shopiecomreact.duckdns.org/api/payment/verify",
               type === "cart"
                 ? {
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_signature: response.razorpay_signature,
-                    mode: "cart"
+                    mode: "cart",
                   }
                 : {
                     razorpay_payment_id: response.razorpay_payment_id,
@@ -60,9 +60,9 @@ function Payment() {
                     razorpay_signature: response.razorpay_signature,
                     mode: "single",
                     itemid,
-                    quantity
+                    quantity,
                   },
-              { withCredentials: true }
+              { withCredentials: true },
             );
 
             alert(verifyRes.data.message);
@@ -74,8 +74,8 @@ function Payment() {
         },
 
         theme: {
-          color: "#0f172a"
-        }
+          color: "#0f172a",
+        },
       };
 
       const razor = new window.Razorpay(options);

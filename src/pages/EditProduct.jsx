@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 function EditProduct() {
-
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -28,7 +27,6 @@ function EditProduct() {
   // SHOW TOAST FUNCTION
 
   function showBootstrapToast(message, type = "success") {
-
     setToastMessage(message);
 
     setToastType(type);
@@ -41,14 +39,12 @@ function EditProduct() {
   }
 
   async function getProduct() {
-
     try {
-
       const res = await axios.get(
-        `https://ecomflask.duckdns.org/api/admin/item/${id}`,
+        `https://shopiecomreact.duckdns.org/api/admin/item/${id}`,
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
 
       const p = res.data.product;
@@ -61,15 +57,10 @@ function EditProduct() {
         price: p.price,
         category: p.category,
       });
-
     } catch (error) {
-
       console.log(error.response?.data || error.message);
 
-      showBootstrapToast(
-        "Failed to load product",
-        "danger"
-      );
+      showBootstrapToast("Failed to load product", "danger");
     }
   }
 
@@ -78,7 +69,6 @@ function EditProduct() {
   }, []);
 
   function handleChange(e) {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -86,11 +76,9 @@ function EditProduct() {
   }
 
   async function handleSubmit(e) {
-
     e.preventDefault();
 
     try {
-
       const data = new FormData();
 
       data.append("title", formData.title);
@@ -105,31 +93,29 @@ function EditProduct() {
       }
 
       const res = await axios.put(
-        `https://ecomflask.duckdns.org/api/admin/update-item/${id}`,
+        `https://shopiecomreact.duckdns.org/api/admin/update-item/${id}`,
         data,
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
 
       // SUCCESS TOAST
       showBootstrapToast(
         res.data.message || "Product Updated Successfully",
-        "success"
+        "success",
       );
 
       setTimeout(() => {
         navigate("/admin-products");
       }, 1500);
-
     } catch (error) {
-
       console.log(error.response?.data || error.message);
 
       // ERROR TOAST
       showBootstrapToast(
         error.response?.data?.message || "Update Failed",
-        "danger"
+        "danger",
       );
     }
   }
@@ -219,44 +205,30 @@ function EditProduct() {
 
       {/* TOAST */}
 
-      {
-        showToast && (
-          <div
-            className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
-            role="alert"
-          >
-            <div className="d-flex">
+      {showToast && (
+        <div
+          className={`toast show align-items-center text-white bg-${toastType} border-0 custom-toast`}
+          role="alert"
+        >
+          <div className="d-flex">
+            <div className="toast-body">{toastMessage}</div>
 
-              <div className="toast-body">
-                {toastMessage}
-              </div>
-
-              <button
-                type="button"
-                className="btn-close btn-close-white me-2 m-auto"
-                onClick={() => setShowToast(false)}
-              ></button>
-
-            </div>
+            <button
+              type="button"
+              className="btn-close btn-close-white me-2 m-auto"
+              onClick={() => setShowToast(false)}
+            ></button>
           </div>
-        )
-      }
+        </div>
+      )}
 
       <div className="edit-page">
-
         <div className="edit-card">
-
-          <h1 className="edit-title">
-            Edit Product
-          </h1>
+          <h1 className="edit-title">Edit Product</h1>
 
           <form onSubmit={handleSubmit}>
-
             <div className="mb-3">
-
-              <label className="form-label">
-                Product Title
-              </label>
+              <label className="form-label">Product Title</label>
 
               <input
                 type="text"
@@ -266,14 +238,10 @@ function EditProduct() {
                 onChange={handleChange}
                 placeholder="Enter product title"
               />
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                Description
-              </label>
+              <label className="form-label">Description</label>
 
               <textarea
                 className="form-control"
@@ -283,14 +251,10 @@ function EditProduct() {
                 onChange={handleChange}
                 placeholder="Enter product description"
               ></textarea>
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                About Product
-              </label>
+              <label className="form-label">About Product</label>
 
               <textarea
                 className="form-control"
@@ -300,16 +264,11 @@ function EditProduct() {
                 onChange={handleChange}
                 placeholder="Enter about product"
               ></textarea>
-
             </div>
 
             <div className="row">
-
               <div className="col-md-6 mb-3">
-
-                <label className="form-label">
-                  Quantity
-                </label>
+                <label className="form-label">Quantity</label>
 
                 <input
                   type="number"
@@ -319,14 +278,10 @@ function EditProduct() {
                   onChange={handleChange}
                   placeholder="Enter quantity"
                 />
-
               </div>
 
               <div className="col-md-6 mb-3">
-
-                <label className="form-label">
-                  Price
-                </label>
+                <label className="form-label">Price</label>
 
                 <input
                   type="number"
@@ -336,16 +291,11 @@ function EditProduct() {
                   onChange={handleChange}
                   placeholder="Enter price"
                 />
-
               </div>
-
             </div>
 
             <div className="mb-3">
-
-              <label className="form-label">
-                Category
-              </label>
+              <label className="form-label">Category</label>
 
               <input
                 type="text"
@@ -355,34 +305,23 @@ function EditProduct() {
                 onChange={handleChange}
                 placeholder="Enter category"
               />
-
             </div>
 
             <div className="mb-4">
-
-              <label className="form-label">
-                Upload New Image
-              </label>
+              <label className="form-label">Upload New Image</label>
 
               <input
                 type="file"
                 className="form-control"
                 onChange={(e) => setFile(e.target.files[0])}
               />
-
             </div>
 
-            <button
-              type="submit"
-              className="update-btn"
-            >
+            <button type="submit" className="update-btn">
               Update Product
             </button>
-
           </form>
-
         </div>
-
       </div>
     </>
   );
