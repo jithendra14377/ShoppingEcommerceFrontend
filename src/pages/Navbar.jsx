@@ -23,7 +23,7 @@ function Navbar() {
       }
 
       if (user) {
-        await fetch("https://shopiecomreact.duckdns.org/api/admin/logout", {
+        await fetch("https://reactecom.duckdns.org/api/admin/logout", {
           method: "POST",
           credentials: "include",
         });

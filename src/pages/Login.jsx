@@ -375,8 +375,8 @@ function Login() {
       // Flask backend URL
       const url =
         role === "admin"
-          ? "https://shopiecomreact.duckdns.org/api/admin/login"
-          : "https://shopiecomreact.duckdns.org/api/user/login";
+          ? "https://reactecom.duckdns.org/api/admin/login"
+          : "https://reactecom.duckdns.org/api/user/login";
 
       // Both admin and user login use the same payload
       const payload = {

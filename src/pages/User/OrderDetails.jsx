@@ -15,7 +15,7 @@ function OrderDetails() {
   async function fetchOrder() {
     try {
       const res = await axios.get(
-        `https://shopiecomreact.duckdns.org/api/orders/${orderid}`,
+        `https://reactecom.duckdns.org/api/orders/${orderid}`,
         {
           withCredentials: true,
         },

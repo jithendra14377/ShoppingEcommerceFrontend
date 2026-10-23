@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const API_URL = "https://shopiecomreact.duckdns.org";
+const API_URL = "https://reactecom.duckdns.org";
 
 function UserProduce() {
   const [products, setProducts] = useState([]);
@@ -16,12 +16,12 @@ function UserProduce() {
 
   const categories = [
     { label: "All", value: "All" },
-    { label: "Home Appliances", value: "home_appliences" },
-    { label: "Grocery", value: "Grocery" },
+    { label: "Home Appliances", value: "home_appliances" },
+    { label: "Grocery", value: "grocery" },
     { label: "Fashion", value: "Fashion" },
     { label: "Electronics", value: "Electronics" },
-    { label: "Sports", value: "Sports" },
-    { label: "Toys", value: "Toys" },
+    { label: "Sports", value: "sports" },
+    { label: "Toys", value: "toys" },
   ];
 
   // ============================================================

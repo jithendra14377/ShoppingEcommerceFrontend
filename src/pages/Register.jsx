@@ -27,8 +27,8 @@ function Register() {
   });
   const url =
     role === "admin"
-      ? "https://shopiecomreact.duckdns.org/api/adminregister"
-      : "https://shopiecomreact.duckdns.org/api/user/register";
+      ? "https://reactecom.duckdns.org/api/adminregister"
+      : "https://reactecom.duckdns.org/api/user/register";
 
   const payload =
     role === "admin"
@@ -77,8 +77,8 @@ function Register() {
     try {
       const url =
         role === "admin"
-          ? "https://shopiecomreact.duckdns.org/api/adminregister"
-          : "https://shopiecomreact.duckdns.org/api/user/register";
+          ? "https://reactecom.duckdns.org/api/adminregister"
+          : "https://reactecom.duckdns.org//api/user/register";
 
       const payload =
         role === "admin"

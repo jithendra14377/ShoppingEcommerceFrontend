@@ -507,7 +507,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "https://shopiecomreact.duckdns.org";
+const API_URL = "https://reactecom.duckdns.org";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);

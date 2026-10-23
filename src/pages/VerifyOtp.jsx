@@ -37,8 +37,8 @@ function VerifyOtp() {
     try {
       const url =
         role === "admin"
-          ? "https://shopiecomreact.duckdns.org/api/admin/verify-otp"
-          : "https://shopiecomreact.duckdns.org/api/user/verify-otp";
+          ? "https://reactecom.duckdns.org/api/admin/verify-otp"
+          : "https://reactecom.duckdns.org/api/user/verify-otp";
 
       const payload = {
         otp: otpData.otp,

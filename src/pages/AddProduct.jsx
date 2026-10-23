@@ -64,7 +64,7 @@ function AddProduct() {
       data.append("file", file);
 
       const res = await axios.post(
-        "https://shopiecomreact.duckdns.org/api/admin/add-item",
+        "https://reactecom.duckdns.org/api/admin/add-item",
         data,
         {
           withCredentials: true,

@@ -15,7 +15,7 @@ function MyOrders() {
   async function fetchOrders() {
     try {
       const res = await axios.get(
-        "https://shopiecomreact.duckdns.org/api/myorders",
+        "https://reactecom.duckdns.org/api/myorders",
         {
           withCredentials: true,
         },
@@ -63,7 +63,7 @@ function MyOrders() {
                   <div className="col-3">
                     <a
                       className="btn btn-success btn-sm"
-                      href={`https://shopiecomreact.duckdns.org/api/invoice/${order.orderid}`}
+                      href={`https://reactecom.duckdns.org/api/invoice/${order.orderid}`}
                       target="_blank"
                       rel="noreferrer"
                     >

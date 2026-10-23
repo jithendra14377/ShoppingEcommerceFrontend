@@ -10,7 +10,7 @@ function SingleProduct() {
   async function getSingleProduct() {
     try {
       const res = await axios.get(
-        `https://shopiecomreact.duckdns.org/api/admin/item/${id}`,
+        `https://reactecom.duckdns.org/api/admin/item/${id}`,
         {
           withCredentials: true,
         },

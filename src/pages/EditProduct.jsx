@@ -41,7 +41,7 @@ function EditProduct() {
   async function getProduct() {
     try {
       const res = await axios.get(
-        `https://shopiecomreact.duckdns.org/api/admin/item/${id}`,
+        `https://reactecom.duckdns.org/api/admin/item/${id}`,
         {
           withCredentials: true,
         },
@@ -93,7 +93,7 @@ function EditProduct() {
       }
 
       const res = await axios.put(
-        `https://shopiecomreact.duckdns.org/api/admin/update-item/${id}`,
+        `https://reactecom.duckdns.org/api/admin/update-item/${id}`,
         data,
         {
           withCredentials: true,

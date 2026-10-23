@@ -9,7 +9,7 @@ function AdminProducts() {
   async function getProducts() {
     try {
       const res = await axios.get(
-        "https://shopiecomreact.duckdns.org/api/admin/items",
+        "https://reactecom.duckdns.org/api/admin/items",
         {
           withCredentials: true,
         },
@@ -25,7 +25,7 @@ function AdminProducts() {
   async function deleteProduct(id) {
     try {
       const res = await axios.delete(
-        `https://shopiecomreact.duckdns.org/api/admin/delete-item/${id}`,
+        `https://reactecom.duckdns.org/api/admin/delete-item/${id}`,
         {
           withCredentials: true,
         },
