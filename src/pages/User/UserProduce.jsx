@@ -17,11 +17,11 @@ function UserProduce() {
   const categories = [
     { label: "All", value: "All" },
     { label: "Home Appliances", value: "home_appliances" },
-    { label: "Grocery", value: "grocery" },
+    { label: "grocery", value: "grocery" },
     { label: "Fashion", value: "Fashion" },
     { label: "Electronics", value: "Electronics" },
-    { label: "Sports", value: "sports" },
-    { label: "Toys", value: "toys" },
+    { label: "sports", value: "sports" },
+    { label: "toys", value: "toys" },
   ];
 
   // ============================================================
