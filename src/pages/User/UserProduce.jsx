@@ -66,20 +66,42 @@ function UserProduce() {
     if (cat) {
       setActiveCategory(cat);
 
-      setFiltered(products.filter((product) => product.category === cat));
+      // setFiltered(products.filter((product) => product.category === cat));
+      setFiltered(
+        products.filter(
+          (product) =>
+            (product.category || "").trim().toLowerCase() ===
+            cat.trim().toLowerCase(),
+        ),
+      );
     } else {
       setActiveCategory("All");
       setFiltered(products);
     }
   }, [location.search, products]);
 
+  // function filterByCategory(value) {
+  //   setActiveCategory(value);
+
+  //   if (value === "All") {
+  //     setFiltered(products);
+  //   } else {
+  //     setFiltered(products.filter((product) => product.category === value));
+  //   }
+  // }
   function filterByCategory(value) {
     setActiveCategory(value);
 
     if (value === "All") {
       setFiltered(products);
     } else {
-      setFiltered(products.filter((product) => product.category === value));
+      setFiltered(
+        products.filter(
+          (product) =>
+            (product.category || "").trim().toLowerCase() ===
+            value.trim().toLowerCase(),
+        ),
+      );
     }
   }
 
