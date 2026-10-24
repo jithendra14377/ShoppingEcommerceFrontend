@@ -3,9 +3,7 @@ import axios from "axios";
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async function () {
-    const res = await axios.get(
-      "https://shopiecomreact.duckdns.org/api/products",
-    );
+    const res = await axios.get("https://reactecom.duckdns.org/api/products");
     console.log(res.data);
     return res.data;
   },
